@@ -45,6 +45,7 @@ class Robot(object):
         self.rate.sleep()
 
     def odom_callback(self, msg):
+        if msg is None: return
         position = msg.pose.pose.position
         orientation = msg.pose.pose.orientation
 
@@ -65,13 +66,15 @@ class Robot(object):
 
     def laser_callback(self, msg):
         """
-                Updates laser_data variable to
-                data coming from front laser
+        Updates laser_data variable to
+        data coming from front laser
 
-                :param msg: LaserScan callback data
-                """
+        :param msg: LaserScan callback data
+        """
+        if msg is None: return
         self.laser_data = np.array(msg.ranges)
         minima = find_minima(self.laser_data)
+        if len(minima) is 0: return
         min_angle = get_laser_angle(minima[0])
         min_distance = self.laser_data[min_angle]
 
