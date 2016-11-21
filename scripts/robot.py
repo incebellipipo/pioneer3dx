@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import rospy
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, PoseStamped
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan, Image
+from visualization_msgs.msg import Marker
+
 import tf
 import cv2
 import cv_bridge
@@ -35,9 +37,19 @@ class Robot(object):
                                        Image, self.camera_callback,
                                        queue_size=1)
 
+        self.marker = rospy.Subscriber("/%s/marker" % self.name,
+                                       Marker, self.marker_callback,
+                                       queue_size=1)
+
+        self.nav_goal = rospy.Subscriber("/move_base_simple/goal",
+                                         PoseStamped, self.nav_goal_callback,
+                                         queue_size=1)
+
         self.pose_data = None
         self.laser_data = None
         self.camera_data = None
+        self.marker_data = None
+        self.nav_goal = None
 
         self.cv_bridge = cv_bridge.CvBridge()
 
@@ -97,11 +109,17 @@ class Robot(object):
         # cv2.imshow("Robot Camera", canny)
         cv2.waitKey(1)
 
+    def marker_callback(self, msg):
+        self.marker_data = msg
+
+    def nav_goal_callback(self, msg):
+        self.nav_goal = [msg.pose.position.x, msg.pose.position.y]
+
     def set_speed(self, linear, angular):
         movecmd = Twist()
         movecmd.linear.x = linear
         movecmd.angular.z = angular
-        a = self.cmd_vel.publish(movecmd)
+        self.cmd_vel.publish(movecmd)
 
     def stop(self):
         self.set_speed(0.0, 0.0)

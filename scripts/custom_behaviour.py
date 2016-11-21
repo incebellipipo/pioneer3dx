@@ -19,10 +19,14 @@ def main():
     robot = Robot(robot_name)
     robot.rate.sleep()
 
-    desired_x, desired_y = 5.5, 8.8
-    # desired_x, desired_y = 0.0, 0.0
+    # desired_x, desired_y = 5.5, 8.8
+    desired_x, desired_y = 0.0, 0.0
 
     while not rospy.is_shutdown():
+
+        if robot.nav_goal is not None:
+            desired_x, desired_y = robot.nav_goal[0], robot.nav_goal[1]
+
         linear, angular = robot.go_to(desired_x, desired_y, drive=False)
 
         robot.set_speed(linear, angular)
