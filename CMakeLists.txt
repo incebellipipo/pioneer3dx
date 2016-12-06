@@ -107,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES piooner3dx
+#  LIBRARIES pioneer3dx
 #  CATKIN_DEPENDS rospy
 #  DEPENDS system_lib
 )
@@ -124,24 +124,24 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(py3dx
-#   src/${PROJECT_NAME}/py3dx.cpp
+# add_library(pioneer3dx
+#   src/${PROJECT_NAME}/pioneer3dx.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(py3dx ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(pioneer3dx ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(py3dx_node src/py3dx_node.cpp)
+# add_executable(pioneer3dx_node src/pioneer3dx_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(py3dx_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(pioneer3dx_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(py3dx_node
+# target_link_libraries(pioneer3dx_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -160,7 +160,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS py3dx py3dx_node
+# install(TARGETS pioneer3dx pioneer3dx_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -185,7 +185,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_py3dx.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_pioneer3dx.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
