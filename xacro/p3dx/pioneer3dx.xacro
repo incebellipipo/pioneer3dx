@@ -5,7 +5,7 @@
   <xacro:include filename="$(find gazebo_plugins)/test/multi_robot_scenario/xacro/materials.xacro" />
 
   <!-- Import robot -->
-  <xacro:include filename="$(pioneer3dx)/xacro/p3dx/pioneer3dx_body.xacro"/>
+  <xacro:include filename="$(find pioneer3dx)/xacro/p3dx/pioneer3dx_body.xacro"/>
   <xacro:pioneer3dx_body name="chassis" parent="base_link" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/p3dx"/>
 
   <!-- Laser  -->
