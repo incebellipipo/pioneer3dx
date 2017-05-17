@@ -2,15 +2,15 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="pioneer3dx" >
 
   <!-- Import Rviz colors -->
-  <xacro:include filename="$(find gazebo_plugins)/test/multi_robot_scenario/xacro/materials.xacro" />
+  <xacro:include filename="$(find pioneer3dx)/xacro/materials.xacro" />
 
   <!-- Import robot -->
   <xacro:include filename="$(find pioneer3dx)/xacro/p3dx/pioneer3dx_body.xacro"/>
-  <xacro:pioneer3dx_body name="chassis" parent="base_link" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/p3dx"/>
+  <xacro:pioneer3dx_body name="chassis" parent="base_link" meshes="package://pioneer3dx/meshes/p3dx"/>
 
   <!-- Laser  -->
   <xacro:include filename="$(find pioneer3dx)/xacro/laser/hokuyo.xacro"/>
-  <xacro:laser name="front_laser" parent="chassis" xyz="0.0 0 0.26" rpy="0 0 0" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/"/>
+  <xacro:laser name="front_laser" parent="chassis" xyz="0.0 0 0.26" rpy="0 0 0" meshes="package://pioneer3dx/meshes/"/>
 
   <!-- Sonar
   <xacro:include filename="$(find pioneer3dx)/xacro/p3dx/pioneer3dx_sonar.xacro" />

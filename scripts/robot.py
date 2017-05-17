@@ -16,28 +16,28 @@ from helpers import calculate_difference, find_minima, get_laser_angle
 
 
 class Robot(object):
-    def __init__(self, name):
+    def __init__(self, name = ""):
 
         self.name = name
 
         # Publisher
-        self.cmd_vel = rospy.Publisher("/%s/cmd_vel" % self.name,
+        self.cmd_vel = rospy.Publisher( self.name + "/cmd_vel",
                                        Twist, queue_size=10)
 
         # Subscriber
-        self.odom = rospy.Subscriber("/%s/odom" % self.name,
+        self.odom = rospy.Subscriber( self.name + "/odom",
                                      Odometry, self.odom_callback,
                                      queue_size=1)
 
-        self.laser = rospy.Subscriber("/%s/front_laser/scan" % self.name,
+        self.laser = rospy.Subscriber( self.name + "/front_laser/scan" ,
                                       LaserScan, self.laser_callback,
                                       queue_size=1)
 
-        self.camera = rospy.Subscriber("/%s/front_camera/image_raw" % self.name,
+        self.camera = rospy.Subscriber( self.name + "/front_camera/image_raw" ,
                                        Image, self.camera_callback,
                                        queue_size=1)
 
-        self.marker = rospy.Subscriber("/%s/marker" % self.name,
+        self.marker = rospy.Subscriber( self.name + "/marker" ,
                                        Marker, self.marker_callback,
                                        queue_size=1)
 
