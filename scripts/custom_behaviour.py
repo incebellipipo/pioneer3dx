@@ -28,15 +28,10 @@ def main():
     while not rospy.is_shutdown():
         distance, _ = calculate_difference(pose_before,robot.pose_data)        
         total_distance_traveled += distance
-        rospy.logerr(total_distance_traveled)
         if robot.nav_goal is not None:
             desired_x, desired_y = robot.nav_goal[0], robot.nav_goal[1]
 
         linear, angular = robot.go_to(desired_x, desired_y, drive=False)
-        
-        
-
-        
         # end flag
         pose_before = robot.pose_data
 

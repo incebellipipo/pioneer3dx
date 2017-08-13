@@ -1,0 +1,16 @@
+<launch>
+    <node
+        name="stage_ros"
+        pkg="stage_ros"
+        type="stageros"
+        output="screen"
+        args="$(find pioneer3dx)/worlds/one_robot.world">
+    </node>
+
+    <node name="robot_controller"  pkg="pioneer3dx" type="custom_behaviour.py">
+        <param name="robot_name" value=""/>
+    </node>
+
+
+</launch>
+
