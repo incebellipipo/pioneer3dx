@@ -13,9 +13,10 @@ def main():
     robot_name = ""
     robot = Robot(robot_name)
     robot.rate.sleep()
-
+    points = [(0,0),(1,1),(2,2)]
     while not rospy.is_shutdown():
-        robot.go_to(-10,-20,drive=True)
+        for point in points:
+            robot.go_to(point[0],point[1],drive=True)
         robot.rate.sleep()
 
 if __name__ == "__main__":
