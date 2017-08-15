@@ -50,7 +50,8 @@ class Robot(object):
         self.camera_data = None
         self.marker_data = None
         self.nav_goal = None
-
+        self.obs_distance = None
+        self.obs_angle = None
         self.cv_bridge = cv_bridge.CvBridge()
 
         self.rate = rospy.Rate(10)
@@ -95,6 +96,9 @@ class Robot(object):
             if hold_distance < min_distance:
                 min_distance = hold_distance
                 min_angle = i
+
+        self.obs_distance = min_distance
+        self.obs_angle = min_angle
 
     def camera_callback(self, msg):
         try:
