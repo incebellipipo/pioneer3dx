@@ -5,7 +5,7 @@
         <param name="robot_name" value=""/>
         <remap from="/cmd_vel" to="/cmd_vel_mux/input/teleop" />
         <remap from="/odom" to="/odom" />
-        <remap from="/scan" to="/front_laser/scan" />
+        <remap from="/front_laser/scan" to="/scan" />
     </node>
 
 </launch>

@@ -88,17 +88,7 @@ class Robot(object):
         self.laser_data = np.array(msg.ranges)
         minima = find_minima(self.laser_data)
         if len(minima) is 0: return
-        min_angle = get_laser_angle(minima[0])
-        min_distance = self.laser_data[min_angle]
 
-        for i in minima:
-            hold_distance = self.laser_data[i]
-            if hold_distance < min_distance:
-                min_distance = hold_distance
-                min_angle = i
-
-        self.obs_distance = min_distance
-        self.obs_angle = min_angle
 
     def camera_callback(self, msg):
         try:
@@ -128,15 +118,17 @@ class Robot(object):
     def stop(self):
         self.set_speed(0.0, 0.0)
 
-    def go_to(self, x, y, drive=False):
+    def go_to(self, x, y, drive=True, with_pose=True):
         distance, angle = calculate_difference((self.pose_data[0], self.pose_data[1]), (x, y))
         while distance is not 0.0:
             distance, angle = calculate_difference((self.pose_data[0], self.pose_data[1]), (x, y))
+            if with_pose is False:
+                distance, angle = calculate_difference((0, 0), (x, y))
             error_angle = angle - self.pose_data[2]
             error_angle = math.atan2(math.sin(error_angle), math.cos(error_angle))
-            angular = error_angle * 1.0
+            angular = error_angle * 1.0 # PID with just P
             distance = distance if distance > 0.1 else 0.0
-            linear = 0.4 if distance > 0.5 else distance * 0.5
+            linear = 0.5 if distance > 0.5 else distance * 0.5
             if not drive:
                 break
             self.set_speed(linear, angular)

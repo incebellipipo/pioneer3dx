@@ -9,7 +9,7 @@ from potential_fields import *
 def main():
 
     rospy.init_node('pf_optimization', anonymous=True, disable_signals=True)
-    robot_name = rospy.get_param("~robot_name")
+    robot_name = ""
 
     robot = Robot(robot_name)
 
@@ -27,10 +27,8 @@ def main():
         robot.rate.sleep()
 
     desired_x, desired_y = 10, 10 # todo argparser
-    robot.initial_pose = (robot.pose_data[0], robot.pose_data[1])
 
     while not rospy.is_shutdown():
-
         if robot.obs_distance is not None:
             obs_x, obs_y = get_real_point_pose(
                 robot.pose_data[0],
@@ -40,6 +38,14 @@ def main():
                 robot.obs_angle
             )
         if obs_x is None or obs_y is None:
+            linear, angular = robot.go_to(desired_x, desired_y, drive=False)
+            dist_to_obj, _ = calculate_difference((robot.pose_data[0], robot.pose_data[1]), (desired_x, desired_y))
+            if dist_to_obj < 0.3:  # 30 cm
+                linear, angular = 0, 0
+                robot.stop()
+
+            robot.set_speed(linear, angular)
+            robot.rate.sleep()
             continue
 
         obs_point = Point(
@@ -63,7 +69,7 @@ def main():
 
         final_vector_x = goal_vector[0] + obs_vector[0]
         final_vector_y = goal_vector[1] + obs_vector[1]
-        linear, angular = robot.go_to(final_vector_x, final_vector_y, drive=False)
+        linear, angular = robot.go_to(final_vector_x, final_vector_y, drive=False, with_pose=False)
         dist_to_obj, _ = calculate_difference((robot.pose_data[0], robot.pose_data[1]), (desired_x, desired_y))
         if dist_to_obj < 0.3: # 30 cm
             linear, angular = 0, 0

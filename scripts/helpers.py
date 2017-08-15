@@ -40,7 +40,9 @@ def get_laser_angle(point):
     :param point: Laser point number
     :return: Angle in radians
     """
-    return (2 * math.pi * (point + 1) / 360) - math.pi
+    return ((2 * math.pi * (point + 1) / 60.0) - math.pi ) - 30.0
+
+
 
 def sign(x):
     return math.copysign(1, x)
