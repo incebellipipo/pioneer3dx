@@ -21,7 +21,7 @@ class Robot(object):
         self.name = name
 
         # Publisher
-        self.cmd_vel = rospy.Publisher( self.name + "/cmd_vel_mux/input/teleop",
+        self.cmd_vel = rospy.Publisher( self.name + "/cmd_vel",
                                        Twist, queue_size=10)
 
         # Subscriber
@@ -29,21 +29,21 @@ class Robot(object):
                                      Odometry, self.odom_callback,
                                      queue_size=1)
 
-        # self.laser = rospy.Subscriber( self.name + "/front_laser/scan" ,
-        #                              LaserScan, self.laser_callback,
-        #                               queue_size=1)
+        self.laser = rospy.Subscriber( self.name + "/front_laser/scan",
+                                     LaserScan, self.laser_callback,
+                                      queue_size=1)
 
-        # self.camera = rospy.Subscriber( self.name + "/front_camera/image_raw" ,
-        #                                Image, self.camera_callback,
-        #                                queue_size=1)
+        self.camera = rospy.Subscriber( self.name + "/front_camera/image_raw",
+                                       Image, self.camera_callback,
+                                       queue_size=1)
 
-        # self.marker = rospy.Subscriber( self.name + "/marker" ,
-        #                                Marker, self.marker_callback,
-        #                                queue_size=1)
+        self.marker = rospy.Subscriber( self.name + "/marker",
+                                       Marker, self.marker_callback,
+                                       queue_size=1)
 
-        # self.nav_goal = rospy.Subscriber("/move_base_simple/goal",
-        #                                PoseStamped, self.nav_goal_callback,
-        #                                  queue_size=1)
+        self.nav_goal = rospy.Subscriber("/move_base_simple/goal",
+                                       PoseStamped, self.nav_goal_callback,
+                                         queue_size=1)
 
         self.pose_data = None
         self.laser_data = None
