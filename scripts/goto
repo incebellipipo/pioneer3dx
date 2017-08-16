@@ -1,0 +1,28 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
+import rospy
+from robot import Robot
+from geometry_msgs.msg import Pose2D
+import argparse
+
+
+def main():
+    rospy.init_node('custom_behaviour', anonymous=False, disable_signals=True)
+
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument("x")
+    parser.add_argument("y")
+    args = parser.parse_args()
+
+    currentGoal = Pose2D
+
+    currentGoal.x = float(args.x)
+    currentGoal.y = float(args.y)
+    robot_name = ""
+    robot = Robot(robot_name)
+    robot.go_to(currentGoal.x, currentGoal.y, drive=True)
+
+
+if __name__ == "__main__":
+    main()
