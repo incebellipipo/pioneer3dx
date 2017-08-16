@@ -15,7 +15,7 @@ def poseCallback(msg):
 
 def main():
     rospy.init_node('custom_behaviour', anonymous=False, disable_signals=True)
-    goalCallback = rospy.Subscriber("/kovan/pose", Pose2D, poseCallback, queue_size=1)
+    rospy.Subscriber("/kovan/pose", Pose2D, poseCallback, queue_size=1)
     global currentGoal
     robot_name = ""
     robot = Robot(robot_name)
