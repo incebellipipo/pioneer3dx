@@ -1,11 +1,3 @@
 <launch>
     <include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch"/>
-
-    <node name="robot_controller"  pkg="pioneer3dx" type="custom_behaviour.py">
-        <param name="robot_name" value=""/>
-        <remap from="/cmd_vel" to="/cmd_vel_mux/input/teleop" />
-        <remap from="/odom" to="/odom" />
-        <remap from="/front_laser/scan" to="/scan" />
-    </node>
-
 </launch>
